@@ -36,18 +36,23 @@ export default function Footer() {
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
                                     <a
-                                        href="https://github.com/hiteshchoudhary"
+                                        href="https://www.instagram.com/satyam_1421"
                                         className="hover:underline"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
-                                        Github
+                                        Instagram
                                     </a>
                                 </li>
                                 <li>
-                                    <Link to="/" className="hover:underline">
-                                        Discord
-                                    </Link>
+                                <a
+                                        href="https://www.linkedin.com/in/satyam-tripathi-783371294"
+                                        className="hover:underline"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Linkedin
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -72,8 +77,8 @@ export default function Footer() {
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <span className="text-sm text-gray-500 sm:text-center">
                         © 2023
-                        <a href="https://hiteshchoudhary.com/" className="hover:underline">
-                            hiteshchoudhary
+                        <a href="https://www.instagram.com/satyam_1421" target="blank" className="hover:underline">
+                            satyamtripathi
                         </a>
                         . All Rights Reserved.
                     </span>

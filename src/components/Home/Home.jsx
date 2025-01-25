@@ -1,45 +1,51 @@
-import React from 'react'
+import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-    return (
-        <div className="mx-auto w-full max-w-7xl bg-white">
-            {/* Main section */}
-            <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 sm:py-16">
-                <div className="relative z-10 max-w-screen-xl px-4 pb-20 pt-10 sm:py-24 mx-auto sm:px-6 lg:px-8">
-                    <div className="max-w-xl sm:mt-1 mt-20 space-y-8 text-center sm:text-right sm:ml-auto">
-                        <h2 className="text-4xl font-bold sm:text-5xl text-indigo-600">
-                            Welcome to Yoyo
-                        </h2>
-                        <p className="text-lg text-gray-600 sm:text-xl">
-                            Get started by logging in and exploring the features we have to offer. It's time to level up your experience.
-                        </p>
+  return (
+    <div className="relative h-screen w-full bg-gradient-to-b from-indigo-600 to-blue-500">
+    {/* Background Content */}
+    <div
+      className="absolute inset-0 bg-cover bg-center opacity-30"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1350&q=80')",
+      }}
+    ></div>
 
-                        {/* Button to login page */}
-                        <Link
-                            className="inline-flex text-white items-center px-6 py-3 font-medium bg-indigo-600 rounded-lg hover:bg-indigo-700 mt-4"
-                            to="/login"
-                        >
-                            Login to your account
-                        </Link>
+    {/* Gradient Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-80"></div>
 
-                        {/* Optionally add a sign-up button if needed */}
-                        <p className="mt-2 text-sm text-gray-500">
-                            Don’t have an account? 
-                            <Link to="/signup" className="text-indigo-600 hover:underline">
-                                Sign up here
-                            </Link>
-                        </p>
-                    </div>
-                </div>
+    {/* Main Content */}
+    <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-6">
+      <div className="max-w-3xl space-y-6">
+        {/* Heading */}
+        <h1 className="text-5xl sm:text-6xl font-extrabold text-white leading-tight">
+          Innovating the Future of Technology
+        </h1>
+        <p className="text-xl sm:text-2xl text-gray-200">
+          Specializing in Web Development, App Development, and cutting-edge solutions.
+        </p>
 
-                {/* Image on the side */}
-                <div className="absolute inset-0 w-full sm:my-20 sm:pt-1 pt-6 h-full">
-    <img className="w-96 absolute left-0 top-1/3 transform -translate-y-1/2" src="https://plus.unsplash.com/premium_photo-1737392497152-9e37fafcb9f7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0NXx8fGVufDB8fHx8fA%3D%3D" alt="image1" />
-</div>
-
-            </aside>
-
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-6 mt-8">
+            <Link
+              to="/login"
+              className="px-8 py-4 text-lg font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-full shadow-lg transition duration-300"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/signup"
+              className="px-8 py-4 text-lg font-semibold text-indigo-600 bg-white hover:bg-gray-100 rounded-full shadow-lg transition duration-300"
+            >
+              Sign Up
+            </Link>
+          </div>
         </div>
-    );
+      </div>
+
+     
+    </div>
+  );
 }

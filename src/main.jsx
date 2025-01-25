@@ -8,6 +8,8 @@ import Signup from './components/Pages/Signup';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import ForgetPassword from './components/Pages/ForgetPassword';
+import Services from './components/Pages/Services';
+import Contact from './components/Pages/Contact';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: 'forgetPassword', 
         element: <ForgetPassword />,
+      },
+      {
+        path: 'services', 
+        element: <Services />,
+      },
+      {
+        path: 'contact', 
+        element: <Contact />,
       },
     ],
   },
