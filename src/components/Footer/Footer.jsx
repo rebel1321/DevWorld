@@ -9,7 +9,7 @@ export default function Footer() {
                     <div className="mb-6 md:mb-0">
                         <Link to="/" className="flex items-center">
                             <img
-                                src="https://tse3.mm.bing.net/th?id=OIP.nD9-oHTqRbXajgQJ_z0ilAAAAA&pid=Api&P=0&h=180"
+                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                                 className="mr-3 h-16 "
                                 alt="Logo"
                             />
