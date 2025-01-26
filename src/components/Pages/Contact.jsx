@@ -1,6 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setError("All fields are required.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Simulate form submission
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSuccess("Your message has been sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    }, 1000);
+  };
+
   return (
     <div className="bg-white py-12">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,10 +44,21 @@ export default function Contact() {
         <p className="text-gray-600 text-center mb-12">
           We'd love to hear from you! Fill out the form below or reach us at our contact details.
         </p>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Form */}
           <div className="p-6 bg-white border rounded-lg shadow">
-            <form>
+            {error && (
+              <div className="mb-4 text-red-700 bg-red-100 p-3 rounded-md">
+                {error}
+              </div>
+            )}
+            {success && (
+              <div className="mb-4 text-green-700 bg-green-100 p-3 rounded-md">
+                {success}
+              </div>
+            )}
+            <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="name"
@@ -24,8 +69,11 @@ export default function Contact() {
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                   placeholder="Your name"
+                  disabled={loading}
                 />
               </div>
               <div className="mb-4">
@@ -38,8 +86,11 @@ export default function Contact() {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                   placeholder="Your email"
+                  disabled={loading}
                 />
               </div>
               <div className="mb-4">
@@ -52,15 +103,21 @@ export default function Contact() {
                 <textarea
                   id="message"
                   rows="4"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-2 border rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                   placeholder="Your message"
+                  disabled={loading}
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2"
+                className={`w-full text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2 ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
