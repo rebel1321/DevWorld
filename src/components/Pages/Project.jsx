@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 export default function Project() {
     return (
-        <div className="mx-auto w-full max-w-7xl bg-white p-4">
+        <div className="mx-auto w-full max-w-7xl bg-white p-6">
             <header className="mb-8">
                 <h1 className="text-4xl font-bold text-indigo-600">Your Projects</h1>
                 <p className="text-gray-600 mt-2">
-                    Manage your ongoing, completed, and upcoming projects all in one place. Stay updated with timelines and track progress effortlessly.
+                    Easily manage your projects, track their progress, and gain insights into your development workflow. Stay on top of deadlines and updates.
                 </p>
             </header>
 
@@ -27,9 +27,14 @@ export default function Project() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {/* Project 1 */}
                     <div className="p-4 bg-indigo-50 rounded-lg shadow-md">
+                        <img
+                            src="https://tse1.mm.bing.net/th?id=OIP.JfmZujC-oxQfceBsssqgjwHaEl&pid=Api&P=0&h=180"
+                            alt="E-commerce Platform"
+                            className="rounded-lg mb-4 w-full h-40 object-cover"
+                        />
                         <h3 className="text-lg font-bold text-indigo-600">E-commerce Platform</h3>
                         <p className="text-sm text-gray-600 mt-2">
-                            Building a robust e-commerce site with React and Spring Boot. Expected launch: April 2025.
+                            Building a feature-rich e-commerce site with seamless payment integration and a responsive UI. Expected launch: April 2025.
                         </p>
                         <div className="flex justify-between items-center mt-4">
                             <span className="text-sm text-gray-500">Status: Ongoing</span>
@@ -44,9 +49,14 @@ export default function Project() {
 
                     {/* Project 2 */}
                     <div className="p-4 bg-indigo-50 rounded-lg shadow-md">
+                        <img
+                            src="https://tse1.mm.bing.net/th?id=OIP.Np_SkmquoCOlC15x2E58ZQHaD4&pid=Api&P=0&h=180"
+                            alt="Blog Application"
+                            className="rounded-lg mb-4 w-full h-40 object-cover"
+                        />
                         <h3 className="text-lg font-bold text-indigo-600">Blog Application</h3>
                         <p className="text-sm text-gray-600 mt-2">
-                            A blogging platform with Appwrite for backend. Completed in January 2025.
+                            A blogging platform featuring markdown support and advanced search functionality. Completed in January 2025.
                         </p>
                         <div className="flex justify-between items-center mt-4">
                             <span className="text-sm text-gray-500">Status: Completed</span>
@@ -61,9 +71,14 @@ export default function Project() {
 
                     {/* Project 3 */}
                     <div className="p-4 bg-indigo-50 rounded-lg shadow-md">
+                        <img
+                            src="https://tse4.mm.bing.net/th?id=OIP.pgr1Zu9QVP9r669zElZTKAHaFj&pid=Api&P=0&h=180"
+                            alt="Personal Journal App"
+                            className="rounded-lg mb-4 w-full h-40 object-cover"
+                        />
                         <h3 className="text-lg font-bold text-indigo-600">Personal Journal App</h3>
                         <p className="text-sm text-gray-600 mt-2">
-                            A secure journal application built with Spring Boot. Upcoming updates planned for Q2 2025.
+                            A secure and private journal app to keep daily thoughts organized. Upcoming updates planned for Q2 2025.
                         </p>
                         <div className="flex justify-between items-center mt-4">
                             <span className="text-sm text-gray-500">Status: Ongoing</span>

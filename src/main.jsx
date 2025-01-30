@@ -13,6 +13,7 @@ import Services from "./components/Pages/Services";
 import Contact from "./components/Pages/Contact";
 import DashBoard from "./components/Pages/DashBoard";
 import Project from "./components/Pages/Project";
+import NewProject from "./components/Pages/NewProject";
 
 // Configure routes
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "contact", element: <Contact /> },
       { path: "dashboard", element: <DashBoard /> },
       { path: "projects", element: <Project /> },
+      { path: "new-project", element: <NewProject /> },
     ],
   },
 ]);
