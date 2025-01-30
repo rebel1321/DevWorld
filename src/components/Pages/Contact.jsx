@@ -11,11 +11,11 @@ export default function Contact() {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
+  
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       setError("All fields are required.");
@@ -25,15 +25,38 @@ export default function Contact() {
       setError("Please enter a valid email address.");
       return;
     }
-
-    // Simulate form submission
+  
+    // Submit form data to the backend
     setLoading(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://localhost:8081/contact/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Add your JWT token here if authentication is needed
+          // "Authorization": `Bearer ${yourJwtToken}`
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error("An error occurred. Please try again.");
+      }
+  
+      // Since the backend is sending plain text, not JSON, handle it as text
+      const result = await response.text(); // Use .text() instead of .json()
+  
       setLoading(false);
-      setSuccess("Your message has been sent successfully!");
+      setSuccess(result); // Display the plain text message from the backend
       setFormData({ name: "", email: "", message: "" });
-    }, 1000);
+    } catch (error) {
+      setLoading(false);
+      setError(error.message || "An error occurred. Please try again.");
+    }
   };
+  
+  
 
   return (
     <div className="bg-white py-12">

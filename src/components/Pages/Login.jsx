@@ -5,7 +5,7 @@ import FacebookLogin from "react-facebook-login-lite"; // Facebook OAuth integra
 
 export default function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -35,18 +35,44 @@ export default function Login() {
   };
 
   // Handle manual login button click
-  const handleLoginClick = () => {
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+  const handleLoginClick = async () => {
+    const formErrors = validateForm();
+
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors); // Show validation errors
       return;
     }
 
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      navigate("/dashboard"); // Navigate to dashboard or another route
-    }, 2000);
+    try {
+      const response = await fetch('http://localhost:8081/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setErrors({ apiError: errorData.message || 'Login failed' });
+        return;
+      }
+
+      const data = await response.json();
+      console.log('Login successful:', data);
+
+      // Store the JWT token
+      localStorage.setItem('authToken', data.jwt);
+
+      // Redirect to the dashboard or home page
+      navigate('/'); // Change to your desired route
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrors({ apiError: 'An error occurred. Please try again.' });
+    }
   };
 
   // Handle Google login success
@@ -172,18 +198,18 @@ export default function Login() {
           </div>
         </form>
 
-        {/* Social Media Login */}
+        {/* Social Media Login
         <div className="mt-6">
           <p className="text-sm text-center text-gray-500">Or continue with</p>
           <div className="flex gap-4 mt-4 justify-center">
-            {/* Google Login */}
+            Google Login
             <GoogleLogin
               onSuccess={handleGoogleLoginSuccess}
               onError={handleGoogleLoginError}
             />
             
           </div>
-        </div>
+        </div> */}
 
         {/* Sign Up Link */}
         <p className="mt-8 text-center text-sm text-gray-500">

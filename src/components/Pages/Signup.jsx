@@ -7,7 +7,8 @@ export default function Signup() {
 
   // State variables for input fields and error handling
   const [formData, setFormData] = useState({
-    fullname: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -32,7 +33,8 @@ export default function Signup() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.fullname.trim()) newErrors.fullname = 'Full name is required.';
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required.';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required.';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required.';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -48,8 +50,10 @@ export default function Signup() {
     return newErrors;
   };
 
+
   // Handle form submission
-  const handleSignupClick = () => {
+  // Handle form submission
+  const handleSignupClick = async () => {
     const formErrors = validateForm();
 
     if (Object.keys(formErrors).length > 0) {
@@ -57,10 +61,36 @@ export default function Signup() {
       return;
     }
 
-    // Perform sign-up logic here (e.g., API call)
-    console.log('Form submitted:', formData);
-    navigate('/'); // Redirect after successful sign-up
+    try {
+      const response = await fetch('http://localhost:8081/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setErrors({ apiError: errorData.message || 'Signup failed' });
+        return;
+      }
+
+      const data = await response.json();
+      console.log('Signup successful:', data);
+
+      navigate('/login'); // Redirect to login page
+    } catch (error) {
+      console.error('Signup error:', error);
+      setErrors({ apiError: 'An error occurred. Please try again.' });
+    }
   };
+
 
   // Handle Google Sign-up success
   const handleGoogleSignupSuccess = (credentialResponse) => {
@@ -91,23 +121,41 @@ export default function Signup() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6">
-            {/* Full Name Field */}
+            {/* First Name Field */}
             <div>
-              <label htmlFor="fullname" className="block text-sm font-medium text-gray-900 text-left">
-                Enter full name
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-900 text-left">
+                First name
               </label>
               <div className="mt-2">
                 <input
-                  id="fullname"
-                  name="fullname"
+                  id="firstName"
+                  name="firstName"
                   type="text"
-                  value={formData.fullname}
+                  value={formData.firstName}
                   onChange={handleChange}
                   required
                   className="block w-full rounded-md px-3 py-1.5 text-gray-900 border border-black-900"
-                  placeholder="Enter your full name"
+                  placeholder="Enter your first name"
                 />
-                {errors.fullname && <p className="text-red-500 text-sm">{errors.fullname}</p>}
+                {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
+              </div>
+            </div>
+            <div>
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-900 text-left">
+                Last name
+              </label>
+              <div className="mt-2">
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  required
+                  className="block w-full rounded-md px-3 py-1.5 text-gray-900 border border-black-900"
+                  placeholder="Enter your last name"
+                />
+                {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
               </div>
             </div>
 
@@ -153,6 +201,7 @@ export default function Signup() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-3 text-gray-500 focus:outline-none"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
