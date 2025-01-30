@@ -68,7 +68,7 @@ export default function Login() {
       localStorage.setItem('authToken', data.jwt);
 
       // Redirect to the dashboard or home page
-      navigate('/'); // Change to your desired route
+      navigate('/dashboard'); // Change to your desired route
     } catch (error) {
       console.error('Login error:', error);
       setErrors({ apiError: 'An error occurred. Please try again.' });

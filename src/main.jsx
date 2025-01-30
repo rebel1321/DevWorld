@@ -11,6 +11,8 @@ import About from "./components/About/About";
 import ForgetPassword from "./components/Pages/ForgetPassword";
 import Services from "./components/Pages/Services";
 import Contact from "./components/Pages/Contact";
+import DashBoard from "./components/Pages/DashBoard";
+import Project from "./components/Pages/Project";
 
 // Configure routes
 const router = createBrowserRouter([
@@ -25,6 +27,8 @@ const router = createBrowserRouter([
       { path: "forgetPassword", element: <ForgetPassword /> },
       { path: "services", element: <Services /> },
       { path: "contact", element: <Contact /> },
+      { path: "dashboard", element: <DashBoard /> },
+      { path: "projects", element: <Project /> },
     ],
   },
 ]);
