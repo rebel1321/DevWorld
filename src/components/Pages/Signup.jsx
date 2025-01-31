@@ -62,7 +62,7 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch('http://localhost:8081/auth/signup', {
+      const response = await fetch("https://devworld-backend-production.up.railway.app/auth/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

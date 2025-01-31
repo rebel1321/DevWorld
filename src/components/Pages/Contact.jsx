@@ -29,7 +29,7 @@ export default function Contact() {
     // Submit form data to the backend
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8081/contact/submit", {
+      const response = await fetch("https://devworld-backend-production.up.railway.app/contact/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
