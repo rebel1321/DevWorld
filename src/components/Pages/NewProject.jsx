@@ -5,6 +5,7 @@ export default function NewProject() {
         name: '',
         description: '',
         deadline: '',
+        image: null,
     });
 
     const handleChange = (e) => {
@@ -12,11 +13,18 @@ export default function NewProject() {
         setProject((prev) => ({ ...prev, [name]: value }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProject((prev) => ({ ...prev, image: file }));
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('New Project Added:', project);
         alert('Project added successfully!');
-        setProject({ name: '', description: '', deadline: '' });
+        setProject({ name: '', description: '', deadline: '', image: null });
     };
 
     return (
@@ -64,6 +72,30 @@ export default function NewProject() {
                         required
                         className="w-full p-2 border rounded-lg mt-1"
                     />
+                </div>
+                <div>
+                    <label htmlFor="image" className="block text-gray-700 font-bold">
+                        Upload Project Image
+                    </label>
+                    <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="w-full p-2 border rounded-lg mt-1"
+                    />
+                    {project.image && (
+    <div className="mt-4">
+        <p className="text-gray-600">Preview:</p>
+        <img
+            src={URL.createObjectURL(project.image)}
+            alt="Project Preview"
+            className="w-full max-h-96 object-contain mt-2 rounded-lg shadow-md"
+        />
+    </div>
+)}
+
                 </div>
                 <button
                     type="submit"

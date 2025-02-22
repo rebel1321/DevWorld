@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google"; // Google OAuth integration
 import FacebookLogin from "react-facebook-login-lite"; // Facebook OAuth integration
+import AuthService from "../Service/auth.service";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -37,42 +38,19 @@ export default function Login() {
   // Handle manual login button click
   const handleLoginClick = async () => {
     const formErrors = validateForm();
-
     if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors); // Show validation errors
+      setErrors(formErrors);
       return;
     }
-
+    setLoading(true);
     try {
-      const response = await fetch('http://localhost:8081/auth/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrors({ apiError: errorData.message || 'Login failed' });
-        return;
-      }
-
-      const data = await response.json();
-      console.log('Login successful:', data);
-
-      // Store the JWT token
-      localStorage.setItem('authToken', data.jwt);
-
-      // Redirect to the dashboard or home page
-      navigate('/dashboard'); // Change to your desired route
+      const data = await AuthService.login(formData.email, formData.password);
+      console.log("Login successful:", data);
+      navigate("/dashboard");
     } catch (error) {
-      console.error('Login error:', error);
-      setErrors({ apiError: 'An error occurred. Please try again.' });
+      setErrorMessage(error.response?.data?.message || "Login failed. Please try again.");
     }
+    setLoading(false);
   };
 
   // Handle Google login success
@@ -99,7 +77,7 @@ export default function Login() {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           alt="Your Company"
-          src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+          src="https://img.freepik.com/premium-photo/blue-icon-with-words-shape-peace-together-it-style-jeremy-lipking_921860-115398.jpg?w=900"
           className="mx-auto h-10 w-auto"
         />
         <h2 className="mt-10 text-center text-3xl font-bold text-gray-900">
@@ -198,18 +176,17 @@ export default function Login() {
           </div>
         </form>
 
-        {/* Social Media Login
+        {/* Social Media Login */}
         <div className="mt-6">
           <p className="text-sm text-center text-gray-500">Or continue with</p>
           <div className="flex gap-4 mt-4 justify-center">
-            Google Login
             <GoogleLogin
               onSuccess={handleGoogleLoginSuccess}
               onError={handleGoogleLoginError}
             />
             
           </div>
-        </div> */}
+        </div>
 
         {/* Sign Up Link */}
         <p className="mt-8 text-center text-sm text-gray-500">

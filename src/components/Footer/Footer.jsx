@@ -9,7 +9,7 @@ export default function Footer() {
                     <div className="mb-6 md:mb-0">
                         <Link to="/" className="flex items-center">
                             <img
-                                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                                src="https://img.freepik.com/premium-photo/blue-icon-with-words-shape-peace-together-it-style-jeremy-lipking_921860-115398.jpg?w=900"
                                 className="mr-3 h-16 "
                                 alt="Logo"
                             />

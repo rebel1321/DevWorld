@@ -14,6 +14,8 @@ import Contact from "./components/Pages/Contact";
 import DashBoard from "./components/Pages/DashBoard";
 import Project from "./components/Pages/Project";
 import NewProject from "./components/Pages/NewProject";
+import ResetPassword from "./components/Pages/ResetPassword";
+import OtpVerification from "./components/Pages/OtpVerification";
 
 // Configure routes
 const router = createBrowserRouter([
@@ -31,13 +33,15 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <DashBoard /> },
       { path: "projects", element: <Project /> },
       { path: "new-project", element: <NewProject /> },
+      { path: "otpVerification", element: <OtpVerification /> },
+      { path: "resetPassword", element: <ResetPassword /> },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <GoogleOAuthProvider clientId="1092818898756-5lq7jo62e2telek2c4j5galll33fmglj.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="1086913269876-8m24859l18b0r60797mq57ltofsn4kqg.apps.googleusercontent.com">
       <RouterProvider router={router} />
     </GoogleOAuthProvider>
   </StrictMode>

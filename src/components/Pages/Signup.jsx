@@ -52,42 +52,18 @@ export default function Signup() {
 
 
   // Handle form submission
-  // Handle form submission
   const handleSignupClick = async () => {
     const formErrors = validateForm();
-
     if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors); // Show validation errors
+      setErrors(formErrors);
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:8081/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrors({ apiError: errorData.message || 'Signup failed' });
-        return;
-      }
-
-      const data = await response.json();
-      console.log('Signup successful:', data);
-
-      navigate('/login'); // Redirect to login page
+      await AuthService.signup(formData.firstName, formData.lastName, formData.email, formData.password);
+      navigate('/login');
     } catch (error) {
-      console.error('Signup error:', error);
-      setErrors({ apiError: 'An error occurred. Please try again.' });
+      setErrors({ apiError: error.message || 'Signup failed' });
     }
   };
 
@@ -96,7 +72,7 @@ export default function Signup() {
   const handleGoogleSignupSuccess = (credentialResponse) => {
     console.log('Google Login Success:', credentialResponse);
     // Add your logic to handle Google OAuth response (e.g., send to server)
-    navigate('/'); // Redirect after successful sign-up
+    navigate('/dashboard'); // Redirect after successful sign-up
   };
 
   // Handle Google Sign-up failure
@@ -111,7 +87,7 @@ export default function Signup() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+            src="https://img.freepik.com/premium-photo/blue-icon-with-words-shape-peace-together-it-style-jeremy-lipking_921860-115398.jpg?w=900"
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-3xl font-bold text-gray-900">
